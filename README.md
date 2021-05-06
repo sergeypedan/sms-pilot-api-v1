@@ -1,4 +1,4 @@
-# SmsPilot
+# SmsPilot API v1 client
 
 Обёртка отправки GET-запроса на API endpoint сервиса SMS Pilot (API v1) для удобства доступа к ошибкам, статусам, цене SMS и т. п.
 
@@ -46,9 +46,11 @@ client.url              # => nil
 ### Send
 
 ```ruby
-client.send_sms!("+7 (902) 123-45-67", "Привет, мир!")
-# => true | false (в зависимости от результата `sms_sent?`)
+client.send_sms!("+7 (902) 123-45-67", "Привет, мир!") # => true
 ```
+
+Returns result of `sms_sent?`, so it’s either `true` or `false`.
+
 
 ### Sending SMS succeeded
 
@@ -128,19 +130,19 @@ https://smspilot.ru/apikey.php
 
 ```json
 {
-  send: [
-    { server_id: "10000", phone: "79021234567", price: "1.68", status: "0" }
+  "send": [
+    { "server_id": "10000", "phone": "79021234567", "price": "1.68", "status": "0" }
   ],
-  balance: "11908.50", cost: "1.68"
+  "balance": "11908.50", "cost": "1.68"
 }
 ```
 
 ```json
 {
-  error: {
-    code: "400",
-    description: "User not found",
-    description_ru: "Пользователь не найден"
+  "error": {
+    "code": "400",
+    "description": "User not found",
+    "description_ru": "Пользователь не найден"
   }
 }
 ```
