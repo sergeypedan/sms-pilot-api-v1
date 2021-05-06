@@ -144,10 +144,11 @@ SMS sent:
 
 ```json
 {
+  "balance": "11908.50",
+  "cost": "1.68",
   "send": [
     { "server_id": "10000", "phone": "79021234567", "price": "1.68", "status": "0" }
-  ],
-  "balance": "11908.50", "cost": "1.68"
+  ]
 }
 ```
 
