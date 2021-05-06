@@ -4,8 +4,16 @@
 
 ## Installation
 
+from RubyGems:
+
 ```ruby
 gem "sms-pilot-api-v1"
+```
+
+from GitHub:
+
+```ruby
+gem "sms-pilot-api-v1", git: "https://github.com/sergeypedan/sms-pilot-api-v1.git"
 ```
 
 ## Usage
@@ -46,7 +54,7 @@ client.url              # => nil
 ### Sending SMS
 
 ```ruby
-client.send_sms!("+7 (902) 123-45-67", "Привет, мир!") # => true
+client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
 ```
 
 Returns result of `sms_sent?`, so it’s either `true` or `false`.

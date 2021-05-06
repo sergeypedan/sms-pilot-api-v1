@@ -32,7 +32,7 @@ module SmsPilot
       @url              = nil
     end
 
-    def send_sms!(phone, text)
+    def send_sms(phone, text)
       fail TypeError, "`phone` must be a String, you pass a #{phone.class} (#{phone})" unless phone.is_a? String
       fail TypeError,  "`text` must be a String, you pass a #{ text.class} (#{ text})" unless text.is_a? String
       fail ArgumentError, "`phone` cannot be empty" if phone == ""
