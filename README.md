@@ -1,5 +1,7 @@
 # SmsPilot API v1 client
 
+[![Gem Version](https://badge.fury.io/rb/sms-pilot-api-v1.svg)](https://badge.fury.io/rb/sms-pilot-api-v1)
+
 Обёртка отправки GET-запроса на API endpoint сервиса SMS Pilot (API v1) для удобства доступа к ошибкам, статусам, цене SMS и т. п.
 
 ## Installation
