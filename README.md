@@ -43,7 +43,7 @@ client.sms_status       # => nil
 client.url              # => nil
 ```
 
-### Send
+### Sending SMS
 
 ```ruby
 client.send_sms!("+7 (902) 123-45-67", "Привет, мир!") # => true
@@ -110,7 +110,7 @@ client.url              # => "https://smspilot.ru/api.php?apikey=1234567890&form
 ```
 
 
-## SMS pilot API docs:
+## SMS pilot API docs
 
 - [web version](https://smspilot.ru/apikey.php) — см. вкладку PHP, в остальных ничего нет
 - [PDF version](https://smspilot.ru/download/SMSPilotRu-HTTP-v1.9.19.pdf) — тут намного подробнее
@@ -128,6 +128,8 @@ https://smspilot.ru/apikey.php
 
 ## API response examples
 
+SMS sent:
+
 ```json
 {
   "send": [
@@ -136,6 +138,8 @@ https://smspilot.ru/apikey.php
   "balance": "11908.50", "cost": "1.68"
 }
 ```
+
+SMS rejected:
 
 ```json
 {
