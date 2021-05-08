@@ -1,5 +1,7 @@
+--private
 --protected
---no-private
+-m markdown
+-M redcarpet
 -
 lib/**/*.rb
 CHANGELOG.md
