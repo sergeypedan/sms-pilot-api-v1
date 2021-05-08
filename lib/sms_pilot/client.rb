@@ -66,7 +66,8 @@ module SmsPilot
       fail ArgumentError, "`phone` must contain digits" if phone.scan(/\d/).none?
 
       @phone = normalize_phone(phone)
-      @url   = build_url(@phone, text)
+      uri    = build_uri(@phone, text)
+      @url   = uri.to_s
 
       response = HTTP.timeout(connect: 15, read: 30).accept(:json).get(@url)
       @response_status  = response.status.code
@@ -183,12 +184,10 @@ module SmsPilot
     end
 
 
-    private
-
-    def build_url(phone, text)
+    private def build_uri(phone, text)
       URI.parse(API_ENDPOINT).tap do |url|
         url.query = URI.encode_www_form({ apikey: @api_key, format: :json, send: text, to: phone })
-      end.to_s
+      end
     end
 
     private def normalize_phone(phone)
