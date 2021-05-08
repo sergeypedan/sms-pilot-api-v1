@@ -111,15 +111,9 @@ module SmsPilot
     #   client = SmsPilot::Client.new(api_key: ENV["SMS_PILOT_API_KEY"])
     #
     def initialize(api_key:, locale: AVAILABLE_LOCALES[0])
-      fail SmsPilot::InvalidAPIkeyError, "API key must be a String, you pass a #{api_key.class} (#{api_key})" unless api_key.is_a? String
-      fail SmsPilot::InvalidAPIkeyError, "API key cannot be empty" if api_key == ""
-
-      fail SmsPilot::InvalidLocaleError, "locale must be a Symbol" unless locale.is_a? Symbol
-      fail SmsPilot::InvalidLocaleError, "API does not support locale :#{locale}; choose one of #{AVAILABLE_LOCALES.inspect}" unless AVAILABLE_LOCALES.include? locale
-
-      @api_key          = api_key
+      @api_key          = validate_api_key!(api_key)
       @error            = nil
-      @locale           = locale
+      @locale           = validate_locale!(locale)
       @response_status  = nil
       @response_headers = {}
       @response_body    = nil
@@ -343,8 +337,54 @@ module SmsPilot
     end
 
 
-    # Validates phone
+    # Validates api_key
+    #
+    # @private
+    # @return [String] the original value passed into the method, only if it was valid
+    # @param [String] api_key
 
+    # @raise [SmsPilot::InvalidError] if api_key is not a String
+    # @raise [SmsPilot::InvalidError] if api_key is an empty String
+    #
+    private def validate_api_key!(api_key)
+      fail SmsPilot::InvalidAPIkeyError, "API key must be a String, you pass a #{api_key.class} (#{api_key})" unless api_key.is_a? String
+      fail SmsPilot::InvalidAPIkeyError, "API key cannot be empty" if api_key == ""
+      return api_key
+    end
+
+
+    # Validates locale
+    #
+    # @private
+    # @return [Symbol] the original value passed into the method, only if it was valid
+    # @param [Symbol] locale
+
+    # @raise [SmsPilot::InvalidError] if locale is not a Symbol
+    # @raise [SmsPilot::InvalidError] if locale is unrecognized
+    #
+    private def validate_locale!(locale)
+      fail SmsPilot::InvalidLocaleError, "locale must be a Symbol" unless locale.is_a? Symbol
+      fail SmsPilot::InvalidLocaleError, "API does not support locale :#{locale}; choose one of #{AVAILABLE_LOCALES.inspect}" unless AVAILABLE_LOCALES.include? locale
+      return locale
+    end
+
+
+    # Validates message
+    #
+    # @private
+    # @return [nil]
+    #
+    # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
+    # @raise [SmsPilot::InvalidMessageError] if your message is empty
+    #
+    private def validate_message!(message)
+      fail SmsPilot::InvalidMessageError, "SMS message must be a String, you pass a #{ message.class} (#{ message})" unless message.is_a? String
+      fail SmsPilot::InvalidMessageError, "SMS message cannot be empty" if  message == ""
+    end
+
+
+    # Validates phone
+    #
     # @private
     # @return [nil]
     #
@@ -356,20 +396,6 @@ module SmsPilot
       fail SmsPilot::InvalidPhoneError, "phone must be a String, you pass a #{phone.class} (#{phone})" unless phone.is_a? String
       fail SmsPilot::InvalidPhoneError, "phone cannot be empty" if phone == ""
       fail SmsPilot::InvalidPhoneError, "phone must contain digits" if phone.scan(/\d/).none?
-    end
-
-
-    # Validates message
-
-    # @private
-    # @return [nil]
-    #
-    # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
-    # @raise [SmsPilot::InvalidMessageError] if your message is empty
-    #
-    private def validate_message!(message)
-      fail SmsPilot::InvalidMessageError, "SMS message must be a String, you pass a #{ message.class} (#{ message})" unless message.is_a? String
-      fail SmsPilot::InvalidMessageError, "SMS message cannot be empty" if  message == ""
     end
 
   end
