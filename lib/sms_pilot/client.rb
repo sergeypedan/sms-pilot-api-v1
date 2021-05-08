@@ -268,7 +268,7 @@ module SmsPilot
     #   client.sms_cost #=> 2.63
     #
     def sms_cost
-      @response_data["cost"] if sms_sent?
+      @response_data["cost"]&.to_f if sms_sent?
     end
 
 
