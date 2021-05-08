@@ -191,7 +191,7 @@ module SmsPilot
       end.to_s
     end
 
-    def normalize_phone(phone)
+    private def normalize_phone(phone)
       phone.gsub(/[^0-9]/, '').sub(/^8/, '7').gsub('+7', '8')
     end
 
