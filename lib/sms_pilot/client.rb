@@ -81,7 +81,7 @@ module SmsPilot
 
       @response_data = JSON.parse @response_body
 
-      return @error = "#{error_description} (код ошибки: #{error_code})" if rejected?
+      return @error = "#{error_description} (error code: #{error_code})" if rejected?
       return true
 
     rescue JSON::ParserError => error
