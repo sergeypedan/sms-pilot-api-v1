@@ -101,14 +101,19 @@ module SmsPilot
 
 
     # @param api_key [String]
+    # @param locale [Symbol]
+    #
     # @return [SmsPilot::Client]
     # @raise [SmsPilot::InvalidAPIkeyError] if you pass anything but a non-empty String
+    # @raise [SmsPilot::InvalidLocaleError] if you pass anything but <tt>:ru</tt> or <tt>:en</tt>
+    #
     # @see https://smspilot.ru/my-settings.php Get your production API key here
     # @see https://smspilot.ru/apikey.php Get your development API key here
     # @note Current development API key is <tt>"XXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZXXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZ"</tt>
     #
     # @example
     #   client = SmsPilot::Client.new(api_key: ENV["SMS_PILOT_API_KEY"])
+    #   client = SmsPilot::Client.new(api_key: ENV["SMS_PILOT_API_KEY"], locale: :en)
     #
     def initialize(api_key:, locale: AVAILABLE_LOCALES[0])
       @api_key          = validate_api_key!(api_key)
