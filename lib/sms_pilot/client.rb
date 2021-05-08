@@ -155,19 +155,22 @@ module SmsPilot
 
       @response_data = JSON.parse @response_body
 
-      return @error = "#{error_description} (error code: #{error_code})" if rejected?
+      if rejected?
+        @error = "#{error_description} (error code: #{error_code})"
+        return false
+      end
+
       return true
 
     rescue JSON::ParserError => error
       @error = "API returned invalid JSON. #{error.message}"
+      return false
 
     rescue SocketError, EOFError, IOError, SystemCallError,
            Timeout::Error, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError,
            Net::ProtocolError, OpenSSL::SSL::SSLError => error
       @error = error.message
-
-    rescue => error
-      @error = error.message
+      return false
     end
 
     # @!endgroup
