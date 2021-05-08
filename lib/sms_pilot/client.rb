@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+require "net/https"
 require "uri"
 
 module SmsPilot
