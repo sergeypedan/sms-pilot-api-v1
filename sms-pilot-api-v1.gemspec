@@ -30,6 +30,4 @@ Gem::Specification.new do |spec|
   spec.bindir        =  "bin"
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "http", "~> 4"
-
 end

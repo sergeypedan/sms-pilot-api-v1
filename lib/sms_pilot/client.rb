@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "http"
 require "uri"
 
 module SmsPilot
@@ -149,8 +148,8 @@ module SmsPilot
       @response_headers = response.header
       @response_body    = response.body
 
-      unless response.status.success?
-        @error = "HTTP request failed with code #{response.status.code}"
+      unless response.code == "200"
+        @error = "HTTP request failed with code #{response.code}"
         return false
       end
 
@@ -162,7 +161,9 @@ module SmsPilot
     rescue JSON::ParserError => error
       @error = "API returned invalid JSON. #{error.message}"
 
-    rescue HTTP::Error => error
+    rescue SocketError, EOFError, IOError, SystemCallError,
+           Timeout::Error, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError,
+           Net::ProtocolError, OpenSSL::SSL::SSLError => error
       @error = error.message
 
     rescue => error
