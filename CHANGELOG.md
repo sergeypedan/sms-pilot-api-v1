@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.5] - 9 May 2021
+
+- Adds locale support (RU / EN)
+
 ## [0.0.4] - 9 May 2021
 
 - Drop dependence on HTTP.rb gem
