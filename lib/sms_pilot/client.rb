@@ -67,14 +67,19 @@ module SmsPilot
       @error = error.message
     end
 
-
+    # Your current balance, remaining after sending that latest SMS.
+    #
+    # @return [nil, Float] Always nil before you send SMS. If it still returns `nil` after successful sending, it may mean the API has changed.
+    #
     def balance
       @response_data["balance"]&.to_f if sms_sent?
     end
 
 
     # Коды ошибок: https://smspilot.ru/apikey.php#err
-    # Расшифровка ошибки пишется в @error
+    # Error description is in <tt>#error</tt>
+    # @see #error
+    # @return nil or Integer
     #
     def error_code
       @response_data.dig("error", "code")&.to_i if rejected?
@@ -82,7 +87,8 @@ module SmsPilot
 
 
     # Коды ошибок: https://smspilot.ru/apikey.php#err
-    # Расшифровка ошибки пишется в @error
+    # Error description is in <tt>#error</tt>
+    # @see #error
     #
     def error_description
       @response_data.dig("error", "description_ru") if rejected?
@@ -96,34 +102,45 @@ module SmsPilot
     end
 
 
-    # API сообщает, что мы заблокированы
+    # API verdict on whether you have been blocked.
     #
-    # 105 из-за низкого баланса
-    # 106 за спам/ошибки
-    # 107 за недостоверные учетные данные / недоступна эл. почта / проблемы с телефоном
-    # 122 спорная ситуация
+    # Error code | Description
+    # :---|:------------------
+    # 105 | из-за низкого баланса
+    # 106 | за спам/ошибки
+    # 107 | за недостоверные учетные данные / недоступна эл. почта / проблемы с телефоном
+    # 122 | спорная ситуация
     #
-    # Расшифровка ошибки пишется в @error
+    # @see #error
     #
     def sender_blocked?
       [105, 106, 107, 122].include? error_code
     end
 
 
-    # Цена отправленной только что SMS
+    # The cost of the SMS that has just been sent
+    #
+    # @return [nil, Integer]
+    #
     def sms_cost
       @response_data["cost"] if sms_sent?
     end
 
 
-    # API успешно отправил SMS
+    # Has the SMS transmission been a success.
+    #
+    # @return [Boolean]
+    #
     def sms_sent?
       @response_data["send"] != nil
     end
 
 
-    # Статус доставки SMS
-    # https://smspilot.ru/apikey.php#status
+    # SMS delivery status, as returned by the API.
+    #
+    # @see https://smspilot.ru/apikey.php#status List of available statuses at API documentation website
+    #
+    # @return [nil, Integer]
     #
     def sms_status
       @response_data.dig("send", 0, "status")&.to_i if sms_sent?
