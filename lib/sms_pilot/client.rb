@@ -5,8 +5,6 @@ require "uri"
 
 module SmsPilot
 
-  API_ENDPOINT = "https://smspilot.ru/api.php".freeze
-
   # @!attribute [r] api_key
   #   @return [String] Your API key.
   #
@@ -64,6 +62,8 @@ module SmsPilot
   #     "https://smspilot.ru/api.php?api_key=XXX&format=json&send=TEXT&to=79021234567"
   #
   class Client
+
+    API_ENDPOINT = "https://smspilot.ru/api.php".freeze
 
     attr_reader :api_key
     attr_reader :error
