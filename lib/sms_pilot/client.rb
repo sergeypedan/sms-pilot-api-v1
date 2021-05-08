@@ -135,11 +135,8 @@ module SmsPilot
     #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
     #
     def send_sms(phone, text)
-      fail SmsPilot::InvalidPhoneError,  "`phone` must be a String, you pass a #{phone.class} (#{phone})" unless phone.is_a? String
-      fail SmsPilot::InvalidMessageError, "`text` must be a String, you pass a #{ text.class} (#{ text})" unless text.is_a? String
-      fail SmsPilot::InvalidPhoneError,  "`phone` cannot be empty" if phone == ""
-      fail SmsPilot::InvalidMessageError, "`text` cannot be empty" if  text == ""
-      fail SmsPilot::InvalidPhoneError,  "`phone` must contain digits" if phone.scan(/\d/).none?
+      validate_phone! phone
+      validate_message! message
 
       @phone = normalize_phone(phone)
       uri    = build_uri(@phone, text)
@@ -326,6 +323,36 @@ module SmsPilot
     #
     private def normalize_phone(phone)
       phone.gsub(/[^0-9]/, '').sub(/^8/, '7').gsub('+7', '8')
+    end
+
+
+    # Validates phone
+
+    # @private
+    # @return [nil]
+    #
+    # @raise [SmsPilot::InvalidPhoneError] if you pass anythig but a String with the <tt>phone</tt> argument
+    # @raise [SmsPilot::InvalidPhoneError] if your phone is empty
+    # @raise [SmsPilot::InvalidPhoneError] if your phone has no digits
+    #
+    private def validate_phone!(phone)
+      fail SmsPilot::InvalidPhoneError, "phone must be a String, you pass a #{phone.class} (#{phone})" unless phone.is_a? String
+      fail SmsPilot::InvalidPhoneError, "phone cannot be empty" if phone == ""
+      fail SmsPilot::InvalidPhoneError, "phone must contain digits" if phone.scan(/\d/).none?
+    end
+
+
+    # Validates message
+
+    # @private
+    # @return [nil]
+    #
+    # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
+    # @raise [SmsPilot::InvalidMessageError] if your message is empty
+    #
+    private def validate_message!(message)
+      fail SmsPilot::InvalidMessageError, "SMS message must be a String, you pass a #{ message.class} (#{ message})" unless message.is_a? String
+      fail SmsPilot::InvalidMessageError, "SMS message cannot be empty" if  message == ""
     end
 
   end
