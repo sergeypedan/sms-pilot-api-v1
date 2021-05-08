@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
 module SmsPilot
-  class Error < StandardError; end
+
+  class InvalidAPIkeyError  < ArgumentError; end
+  class InvalidMessageError < ArgumentError; end
+  class InvalidPhoneError   < ArgumentError; end
+
 end
