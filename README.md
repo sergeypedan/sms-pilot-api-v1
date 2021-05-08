@@ -33,6 +33,7 @@ bin/console
 require "sms_pilot"
 
 client = SmsPilot::Client.new(api_key: "XXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZXXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZ")
+client = SmsPilot::Client.new(api_key: "XXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZXXXXXXXXXXXXYYYYYYYYYYYYZZZZZZZZ", locale: :en) # Available locales are [:en, :ru]
 #<SmsPilot::Client:0x00007fb1c602d490 @api_key="XXXXX...", @error=nil, @response_status=nil, @response_headers=nil, @response_body=nil, @response_data={}, @url=nil>
 ```
 
