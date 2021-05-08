@@ -123,23 +123,23 @@ module SmsPilot
     # @return [Boolean] <tt>true</tt> if the SMS has been sent, <tt>false</tt> otherwise
     #
     # @param [String] phone The phone to send the SMS to. In free-form, will be sanitized.
-    # @param [String] text The text of your message.
+    # @param [String] message The text of your message.
     #
     # @raise [SmsPilot::InvalidPhoneError] if you pass anythig but a String with the <tt>phone</tt> argument
-    # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>text</tt> argument
-    # @raise [SmsPilot::InvalidMessageError] if your text is empty
+    # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
+    # @raise [SmsPilot::InvalidMessageError] if your message is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone has no digits
     #
     # @example
     #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
     #
-    def send_sms(phone, text)
+    def send_sms(phone, message)
       validate_phone! phone
       validate_message! message
 
       @phone = normalize_phone(phone)
-      uri    = build_uri(@phone, text)
+      uri    = build_uri(@phone, message)
       @url   = uri.to_s
 
       response = Net::HTTP.get_response(uri)
