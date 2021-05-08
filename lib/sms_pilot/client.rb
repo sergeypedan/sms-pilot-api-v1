@@ -33,7 +33,7 @@ module SmsPilot
     #
     def initialize(api_key:)
       fail TypeError, "API key must be a String, you pass a #{api_key.class} (#{api_key})" unless api_key.is_a? String
-      fail TypeError, "API key cannot be empty" if api_key == ""
+      fail ArgumentError, "API key cannot be empty" if api_key == ""
 
       @api_key          = api_key
       @error            = nil
