@@ -1,11 +1,11 @@
 # Changelog
 
-## [0.0.4] - 2021-05-09
+## [0.0.4] - 9 May 2021
 
 - Drop dependence on HTTP.rb gem
 - Corrects what `#send_sms` returns (could return String errors instead of Booleans)
 - Adds extensive [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client) via YARD & RubyDoc
 
-## [0.0.3] - 2021-05-06
+## [0.0.3] - 6 May 2021
 
 - Initial release
