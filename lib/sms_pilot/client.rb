@@ -7,7 +7,7 @@ require "uri"
 module SmsPilot
 
   # @!attribute [r] api_key
-  #   @return [String] Your API key.
+  #   @return [String] Your API key
   #
   # @!attribute [r] error
   #   Error message returned from the API, combined with the error code
@@ -16,6 +16,12 @@ module SmsPilot
   #   @return [nil, String]
   #   @see #error_code
   #   @see #error_description
+  #
+  # @!attribute [r] locale
+  #   @return [Symbol] Chosen locale (affects only the language of errors)
+  #
+  # @!attribute [r] phone
+  #   @return [nil, String] phone after normalization
   #
   # @!attribute [r] response_body
   #   Response format is JSON (because we request it that way in {#build_uri}.
@@ -81,9 +87,11 @@ module SmsPilot
     # Check current API endpoint URL at {https://smspilot.ru/apikey.php#api1}
     #
     API_ENDPOINT = "https://smspilot.ru/api.php".freeze
+    AVAILABLE_LOCALES = [:ru, :en].freeze
 
     attr_reader :api_key
     attr_reader :error
+    attr_reader :locale
     attr_reader :phone
     attr_reader :response_body
     attr_reader :response_data
@@ -102,12 +110,16 @@ module SmsPilot
     # @example
     #   client = SmsPilot::Client.new(api_key: ENV["SMS_PILOT_API_KEY"])
     #
-    def initialize(api_key:)
+    def initialize(api_key:, locale: AVAILABLE_LOCALES[0])
       fail SmsPilot::InvalidAPIkeyError, "API key must be a String, you pass a #{api_key.class} (#{api_key})" unless api_key.is_a? String
       fail SmsPilot::InvalidAPIkeyError, "API key cannot be empty" if api_key == ""
 
+      fail SmsPilot::InvalidLocaleError, "locale must be a Symbol" unless locale.is_a? Symbol
+      fail SmsPilot::InvalidLocaleError, "API does not support locale :#{locale}; choose one of #{AVAILABLE_LOCALES.inspect}" unless AVAILABLE_LOCALES.include? locale
+
       @api_key          = api_key
       @error            = nil
+      @locale           = locale
       @response_status  = nil
       @response_headers = {}
       @response_body    = nil
@@ -213,7 +225,8 @@ module SmsPilot
     # @see https://smspilot.ru/apikey.php#err Error codes at the API documentation website
     #
     def error_description
-      @response_data.dig("error", "description_ru") if rejected?
+      method_name = (@locale == :ru) ? "description_ru" : "description"
+      @response_data.dig("error", method_name) if rejected?
     end
 
 
