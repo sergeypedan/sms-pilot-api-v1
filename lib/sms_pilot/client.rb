@@ -143,8 +143,9 @@ module SmsPilot
       @url   = uri.to_s
 
       response = Net::HTTP.get_response(uri)
-      @response_status  = response.code.to_i
+
       @response_body    = response.body
+      @response_status  = response.code.to_i
       @response_headers = response.each_capitalized.to_h
 
       unless response.code == "200"
