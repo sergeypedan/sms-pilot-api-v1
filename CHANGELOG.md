@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.6] - 9 May 2021
+
+- Corrects cost type
+- Switches to PRY in console
+
 ## [0.0.5] - 9 May 2021
 
 - Adds locale support (RU / EN)
