@@ -337,6 +337,8 @@ module SmsPilot
     end
 
 
+    # @!group Validations
+
     # Validates api_key
     #
     # @private
@@ -397,6 +399,8 @@ module SmsPilot
       fail SmsPilot::InvalidPhoneError, "phone cannot be empty" if phone == ""
       fail SmsPilot::InvalidPhoneError, "phone must contain digits" if phone.scan(/\d/).none?
     end
+
+    # @!endgroup
 
   end
 end
