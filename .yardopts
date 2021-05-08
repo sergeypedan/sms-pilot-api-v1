@@ -1,2 +1,6 @@
+--protected
+--no-private
+-
 lib/**/*.rb
+CHANGELOG.md
 README.md
