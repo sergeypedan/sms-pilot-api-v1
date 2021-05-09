@@ -123,11 +123,7 @@ module SmsPilot
       @phone = normalize_phone(phone)
       @uri   = build_uri(@phone, message)
 
-      response = Net::HTTP.get_response(@uri)
-
-      @response_body    = response.body
-      @response_status  = response.code.to_i
-      @response_headers = response.each_capitalized.to_h
+      response = persist_response_details Net::HTTP.get_response(@uri)
 
       @error = "HTTP request failed with code #{response.code}"   and return false unless response.is_a?(Net::HTTPSuccess)
       @error = "#{error_description} (error code: #{error_code})" and return false if rejected?
@@ -348,6 +344,21 @@ module SmsPilot
     #
     private def normalize_phone(phone)
       phone.gsub(/[^0-9]/, '').sub(/^8/, '7').gsub('+7', '8')
+    end
+
+
+    # Saves response details into instance variables
+    # @private
+    #
+    # @return [response]
+    # @raise [TypeError] unless a Net::HTTPResponse passed
+    #
+    private def persist_response_details(response)
+      fail TypeError, "Net::HTTPResponse expected, you pass a #{response.class}" unless response.is_a? Net::HTTPResponse
+      @response_body    = response.body
+      @response_status  = response.code.to_i
+      @response_headers = response.each_capitalized.to_h
+      response
     end
 
 
