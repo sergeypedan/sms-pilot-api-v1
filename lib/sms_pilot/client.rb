@@ -101,7 +101,6 @@ module SmsPilot
       @response_status  = nil
       @response_headers = {}
       @response_body    = nil
-      @response_data    = {}
       @url              = nil
     end
 
