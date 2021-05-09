@@ -1,0 +1,11 @@
+files:
+
+  # defaults to ["{app,lib}/**/*.rb"]
+  included:
+    - lib/sms_pilot/client.rb
+
+  # defaults to []
+  excluded:
+    - lib/sms_pilot.rb
+    - lib/sms_pilot/errors.rb
+    - lib/sms_pilot/version.rb
