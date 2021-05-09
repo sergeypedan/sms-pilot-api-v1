@@ -393,6 +393,7 @@ module SmsPilot
     private def validate_message!(message)
       fail SmsPilot::InvalidMessageError, "SMS message must be a String, you pass a #{ message.class} (#{ message})" unless message.is_a? String
       fail SmsPilot::InvalidMessageError, "SMS message cannot be empty" if  message == ""
+      message
     end
 
 
@@ -410,6 +411,7 @@ module SmsPilot
       fail SmsPilot::InvalidPhoneError, "phone must be a String, you pass a #{phone.class} (#{phone})" unless phone.is_a? String
       fail SmsPilot::InvalidPhoneError, "phone cannot be empty" if phone == ""
       fail SmsPilot::InvalidPhoneError, "phone must contain digits" if phone.scan(/\d/).none?
+      phone
     end
 
     # @!endgroup
