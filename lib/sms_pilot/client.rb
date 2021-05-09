@@ -24,7 +24,7 @@ module SmsPilot
   #   @return [nil, String] phone after normalization
   #
   # @!attribute [r] response_body
-  #   Response format is JSON (because we request it that way in {#build_uri}.
+  #   Response format is JSON (because we request it that way in {#build_uri}).
   #   @example
   #     "{\"send\":[{\"server_id\":\"10000\",\"phone\":\"79021234567\",\"price\":\"1.68\",\"status\":\"0\"}],\"balance\":\"20006.97\",\"cost\":\"1.68\"}"
   #   @return [nil, String] Unmodified HTTP resonse body that API returned
@@ -211,7 +211,7 @@ module SmsPilot
     end
 
 
-    # Parses <tt>@response_body</tt> and memoizes result in <tt>@response_data</tt>.
+    # Parses <tt>@response_body</tt> and memoizes result in <tt>@response_data</tt>
     #
     # @example
     #   {
@@ -228,7 +228,7 @@ module SmsPilot
     #   }
     #
     # @return [Hash]
-    # @raise JSON::ParserError
+    # @raise [JSON::ParserError] which is rescued in {#send_sms}
     #
     # @see #response_body
     # @see #response_headers
@@ -311,14 +311,19 @@ module SmsPilot
 
 
     # The URI we will send an HTTP request to
-    #
     # @private
-    # @return [URI]
-    # @raise [URI::InvalidURIError] but is very unlikely because we provide the URL ourselves
     #
     # @example
     #   build_uri("79021234567", "Hello, World!")
     #   #=> #<URI::HTTPS https://smspilot.ru/api.php?apikey=XXX…&format=json&send=Hello%2C+World%21&to=79021234567>
+    #
+    # @return [URI]
+    # @raise [URI::InvalidURIError] but is very unlikely because we provide the URL ourselves
+    #
+    # @see #api_key
+    # @see #phone
+    # @see #validate_phone!
+    # @see #validate_message!
     #
     private def build_uri(phone, text)
       URI.parse(API_ENDPOINT).tap do |uri|
@@ -330,6 +335,7 @@ module SmsPilot
     # Cleans up your phone from anything but digits. Also replaces 8 to 7 if it is the first digit.
     #
     # @private
+    # @param [String] phone
     # @return [String]
     #
     # @example
@@ -376,9 +382,10 @@ module SmsPilot
 
 
     # Validates message
-    #
     # @private
-    # @return [nil]
+    #
+    # @param [String] message
+    # @return [String] the original value passed into the method, only if it was valid
     #
     # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
     # @raise [SmsPilot::InvalidMessageError] if your message is empty
@@ -390,9 +397,10 @@ module SmsPilot
 
 
     # Validates phone
-    #
     # @private
-    # @return [nil]
+    #
+    # @param [String] phone
+    # @return [String] the original value passed into the method, only if it was valid
     #
     # @raise [SmsPilot::InvalidPhoneError] if you pass anythig but a String with the <tt>phone</tt> argument
     # @raise [SmsPilot::InvalidPhoneError] if your phone is empty
