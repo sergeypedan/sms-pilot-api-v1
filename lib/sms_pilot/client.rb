@@ -138,7 +138,7 @@ module SmsPilot
       @response_status  = response.code.to_i
       @response_headers = response.each_capitalized.to_h
 
-      @error = "HTTP request failed with code #{response.code}" and return false unless response.is_a?(Net::HTTPSuccess)
+      @error = "HTTP request failed with code #{response.code}"   and return false unless response.is_a?(Net::HTTPSuccess)
       @error = "#{error_description} (error code: #{error_code})" and return false if rejected?
 
       true
