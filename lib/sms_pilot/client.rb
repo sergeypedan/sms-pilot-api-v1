@@ -161,11 +161,8 @@ module SmsPilot
 
       @error = "HTTP request failed with code #{response.code}" and return false unless response.is_a?(Net::HTTPSuccess)
       @response_data = JSON.parse @response_body
+      @error = "#{error_description} (error code: #{error_code})" and return false if rejected?
 
-      if rejected?
-        @error = "#{error_description} (error code: #{error_code})"
-        return false
-      end
 
       return true
 
