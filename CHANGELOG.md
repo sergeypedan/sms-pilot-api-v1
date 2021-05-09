@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.7] - 9 May 2021
+
+- Returns original values from validation methods
+- Offloads parsing response body to a method
+- Improves documentation
+- Adds CodeClimate badges
+- Writes tests for `#initialize` and `#api_key`
+
 ## [0.0.6] - 9 May 2021
 
 - Corrects cost type
