@@ -1,6 +1,8 @@
 # SmsPilot API v1 client
 
 [![Gem Version](https://badge.fury.io/rb/sms-pilot-api-v1.svg)](https://badge.fury.io/rb/sms-pilot-api-v1)
+[![Maintainability](https://api.codeclimate.com/v1/badges/42765c3098d5f531a3f7/maintainability)](https://codeclimate.com/github/sergeypedan/sms-pilot-api-v1/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/42765c3098d5f531a3f7/test_coverage)](https://codeclimate.com/github/sergeypedan/sms-pilot-api-v1/test_coverage)
 [![Inch CI documentation](https://inch-ci.org/github/sergeypedan/sms-pilot-api-v1.svg?branch=master&amp;style=flat)](https://inch-ci.org/github/sergeypedan/sms-pilot-api-v1)
 
 Simple wrapper around SMS pilot API v1. Version 1 because it returns more data within its standard response.

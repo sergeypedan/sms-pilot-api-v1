@@ -32,26 +32,6 @@ module SmsPilot
   #   @see #response_headers
   #   @see #response_status
   #
-  # @!attribute [r] response_data
-  #   Parsed <tt>@response_body</tt>. May be an empty <tt>Hash</tt> if parsing fails.
-  #   @example
-  #     {
-  #       "balance" => "20006.97",
-  #       "cost" => "1.68",
-  #       "send" => [
-  #         {
-  #           "phone" => "79021234567",
-  #           "price" => "1.68",
-  #           "server_id" => "10000",
-  #           "status" => "0"
-  #         }
-  #       ]
-  #     }
-  #   @return [Hash]
-  #   @see #response_body
-  #   @see #response_headers
-  #   @see #response_status
-  #
   # @!attribute [r] response_headers
   #   @example
   #     {
@@ -94,7 +74,6 @@ module SmsPilot
     attr_reader :locale
     attr_reader :phone
     attr_reader :response_body
-    attr_reader :response_data
     attr_reader :response_headers
     attr_reader :response_status
     attr_reader :url
@@ -160,7 +139,6 @@ module SmsPilot
       @response_headers = response.each_capitalized.to_h
 
       @error = "HTTP request failed with code #{response.code}" and return false unless response.is_a?(Net::HTTPSuccess)
-      @response_data = JSON.parse @response_body
       @error = "#{error_description} (error code: #{error_code})" and return false if rejected?
 
       true
@@ -188,7 +166,7 @@ module SmsPilot
     #   client.balance #=> 20215.25
     #
     def balance
-      @response_data["balance"]&.to_f if sms_sent?
+      response_data["balance"]&.to_f if sms_sent?
     end
 
 
@@ -229,7 +207,36 @@ module SmsPilot
     #
     def rejected?
       return false if sms_sent?
-      @response_data["error"].is_a? Hash
+      response_data["error"].is_a? Hash
+    end
+
+
+    # Parses <tt>@response_body</tt> and memoizes result in <tt>@response_data</tt>.
+    #
+    # @example
+    #   {
+    #     "balance" => "20006.97",
+    #     "cost" => "1.68",
+    #     "send" => [
+    #       {
+    #         "phone" => "79021234567",
+    #         "price" => "1.68",
+    #         "server_id" => "10000",
+    #         "status" => "0"
+    #       }
+    #     ]
+    #   }
+    #
+    # @return [Hash]
+    # @raise JSON::ParserError
+    #
+    # @see #response_body
+    # @see #response_headers
+    # @see #response_status
+    #
+    def response_data
+      return {} unless @response_body
+      @response_data ||= JSON.parse @response_body
     end
 
 
@@ -260,7 +267,7 @@ module SmsPilot
     #   client.sms_cost #=> 2.63
     #
     def sms_cost
-      @response_data["cost"]&.to_f if sms_sent?
+      response_data["cost"]&.to_f if sms_sent?
     end
 
 
@@ -275,7 +282,7 @@ module SmsPilot
     #   client.sms_sent? #=> true
     #
     def sms_sent?
-      @response_data["send"] != nil
+      response_data["send"] != nil
     end
 
 
