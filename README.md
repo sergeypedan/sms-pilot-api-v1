@@ -44,7 +44,7 @@ client = SmsPilot::Client.new(api_key: key)
 client = SmsPilot::Client.new(api_key: key, locale: :en) # Available locales are [:en, :ru]
 ```
 
-Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#initialize-instance_method)
+Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#initialize-instance_method) at RubyDoc.
 
 ### Before sending
 
@@ -80,7 +80,7 @@ client.send_sms("+7 (902) 123-45-67", "Привет, мир!")
 
 Returns result of `sms_sent?`, so it’s either `true` or `false`.
 
-Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#send_sms-instance_method)
+Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#send_sms-instance_method) at RubyDoc.
 
 ### Sending SMS succeeded
 
@@ -142,9 +142,9 @@ client.url              # => "https://smspilot.ru/api.php?apikey=1234567890&form
 
 ## SMS pilot API docs
 
-- [web version](https://smspilot.ru/apikey.php) — см. вкладку PHP, в остальных ничего нет
+- [Web version](https://smspilot.ru/apikey.php) — см. вкладку PHP, в остальных ничего нет
 - [PDF version](https://smspilot.ru/download/SMSPilotRu-HTTP-v1.9.19.pdf) — тут намного подробнее
-- [Коды ошибок](https://smspilot.ru/apikey.php#err)
+- [API error code](https://smspilot.ru/apikey.php#err)
 
 
 ## Test API key
@@ -181,3 +181,8 @@ SMS rejected:
   }
 }
 ```
+
+
+## Documentation
+
+See [structured documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client) at RubyDoc.

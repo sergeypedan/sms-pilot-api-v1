@@ -112,6 +112,7 @@ module SmsPilot
     # @raise [SmsPilot::InvalidMessageError] if your message is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone has no digits
+    # @raise [URI::InvalidURIError] but is almost impossible, because we provide the URL ourselves
     #
     # @example
     #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
@@ -318,7 +319,7 @@ module SmsPilot
     #   #=> #<URI::HTTPS https://smspilot.ru/api.php?apikey=XXX…&format=json&send=Hello%2C+World%21&to=79021234567>
     #
     # @return [URI]
-    # @raise [URI::InvalidURIError] but is very unlikely because we provide the URL ourselves
+    # @raise [URI::InvalidURIError] but is almost impossible, because we provide the URL ourselves
     #
     # @see #api_key
     # @see #phone
