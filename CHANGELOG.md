@@ -4,6 +4,8 @@
 
 - Passes `charset` attribute to the API in [`#build_uri`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:build_uri)
 - Passes `lang` attribute to the API in [`#build_uri`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:build_uri)
+- Stores constant request params in constants
+- Deprecates [`#sms_status`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:sms_status) in favor of [`#broadcast_status`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:broadcast_status)
 
 ## [0.0.8] - 10 May 2021
 

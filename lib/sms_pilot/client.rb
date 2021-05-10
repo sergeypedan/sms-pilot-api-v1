@@ -187,6 +187,30 @@ module SmsPilot
     end
 
 
+    # SMS delivery status, as returned by the API
+    #
+    # @return [nil, Integer] <tt>nil</tt> is returned before sending SMS or if the request was rejected. Otherwise an <tt>Integer</tt> in the range of [-2..3] is returned.
+    # @see https://smspilot.ru/apikey.php#status List of available statuses at API documentation website
+    #
+    # Code | Name          | Final? | Description
+    # ----:|:--------------|:-------|:-------------
+    # -2   | Ошибка        | Да     | Ошибка, неправильные параметры запроса
+    # -1   | Не доставлено | Да     | Сообщение не доставлено (не в сети, заблокирован, не взял трубку), PING — не в сети, HLR — не обслуживается (заблокирован)
+    #  0   | Новое         | Нет    | Новое сообщение/запрос, ожидает обработки у нас на сервере
+    #  1   | В очереди     | Нет    | Сообщение или запрос ожидают отправки на сервере оператора
+    #  2   | Доставлено    | Да     | Доставлено, звонок совершен, PING — в сети, HLR — обслуживается
+    #  3   | Отложено      | Нет    | Отложенная отправка, отправка сообщения/запроса запланирована на другое время
+    #
+    # @example
+    #   client.broadcast_status #=> 2
+    #
+    # @see #sms_status
+    #
+    def broadcast_status
+      @response_data.dig("send", 0, "status")&.to_i if sms_sent?
+    end
+
+
     # Numerical code of the error that occured when sending the SMS. In the range from 0 to 715 (which may change).
     #
     # @return [nil, Integer] <tt>nil</tt> is returned before sending SMS. Otherwise <tt>Integer</tt>
@@ -303,25 +327,10 @@ module SmsPilot
     end
 
 
-    # SMS delivery status, as returned by the API
-    #
-    # @return [nil, Integer] <tt>nil</tt> is returned before sending SMS or if the request was rejected. Otherwise an <tt>Integer</tt> in the range of [-2..3] is returned.
-    # @see https://smspilot.ru/apikey.php#status List of available statuses at API documentation website
-    #
-    # Code | Name          | Final? | Description
-    # ----:|:--------------|:-------|:-------------
-    # -2   | Ошибка        | Да     | Ошибка, неправильные параметры запроса
-    # -1   | Не доставлено | Да     | Сообщение не доставлено (не в сети, заблокирован, не взял трубку), PING — не в сети, HLR — не обслуживается (заблокирован)
-    #  0   | Новое         | Нет    | Новое сообщение/запрос, ожидает обработки у нас на сервере
-    #  1   | В очереди     | Нет    | Сообщение или запрос ожидают отправки на сервере оператора
-    #  2   | Доставлено    | Да     | Доставлено, звонок совершен, PING — в сети, HLR — обслуживается
-    #  3   | Отложено      | Нет    | Отложенная отправка, отправка сообщения/запроса запланирована на другое время
-    #
-    # @example
-    #   client.sms_status #=> 2
+    # @deprecated (in favor of {#broadcast_status})
     #
     def sms_status
-      @response_data.dig("send", 0, "status")&.to_i if sms_sent?
+      broadcast_status
     end
 
 

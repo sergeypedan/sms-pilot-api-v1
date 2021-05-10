@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sms-pilot-api-v1 (0.0.6)
+    sms-pilot-api-v1 (0.0.9)
 
 GEM
   remote: https://rubygems.org/
