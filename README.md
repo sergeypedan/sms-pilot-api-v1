@@ -44,7 +44,11 @@ client = SmsPilot::Client.new(api_key: key)
 client = SmsPilot::Client.new(api_key: key, locale: :en) # Available locales are [:en, :ru]
 ```
 
+Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#initialize-instance_method)
+
 ### Before sending
+
+There are a bunch of methods describing the state of affairs:
 
 ```ruby
 client.api_key          # => "YOUR API KEY"
@@ -63,6 +67,10 @@ client.sms_status       # => nil
 client.url              # => nil
 ```
 
+before the request is sent they return obvious nils or empty structures; after the request they are populated with data.
+
+See [structured documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client) for those methods at RubyDoc.
+
 ### Sending SMS
 
 ```ruby
@@ -72,6 +80,7 @@ client.send_sms("+7 (902) 123-45-67", "Привет, мир!")
 
 Returns result of `sms_sent?`, so it’s either `true` or `false`.
 
+Method [documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client#send_sms-instance_method)
 
 ### Sending SMS succeeded
 

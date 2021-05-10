@@ -369,7 +369,7 @@ module SmsPilot
     # @private
     # @return [String] the original value passed into the method, only if it was valid
     # @param [String] api_key
-
+    #
     # @raise [SmsPilot::InvalidError] if api_key is not a String
     # @raise [SmsPilot::InvalidError] if api_key is an empty String
     #
@@ -385,7 +385,7 @@ module SmsPilot
     # @private
     # @return [Symbol] the original value passed into the method, only if it was valid
     # @param [Symbol] locale
-
+    #
     # @raise [SmsPilot::InvalidError] if locale is not a Symbol
     # @raise [SmsPilot::InvalidError] if locale is unrecognized
     #
