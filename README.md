@@ -190,3 +190,9 @@ SMS rejected:
 ## Documentation
 
 See [structured documentation](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot/Client) at RubyDoc.
+
+
+## Roadmap
+
+1. Switch to POST to escape 1024 symbolos GET request limit
+1. Switch to result object pattern
