@@ -108,7 +108,7 @@ client.url              # => "https://smspilot.ru/api.php?apikey=1234567890&form
 ```ruby
 client.api_key          # => "YOUR API KEY"
 client.balance          # => nil
-client.broadcast_id     # => 10000
+client.broadcast_id     # => nil
 client.error            # => "Неправильный API-ключ (см. настройки API в личном кабинете) (код ошибки: 101)"
 client.phone            # => "79021234567"
 client.rejected?        # => true
@@ -128,7 +128,7 @@ client.url              # => "https://smspilot.ru/api.php?apikey=1234567890&form
 ```ruby
 client.api_key          # => "YOUR API KEY"
 client.balance          # => nil
-client.broadcast_id     # => 10000
+client.broadcast_id     # => nil
 client.error            # => "HTTP request failed with code 404"
 client.phone            # => "79021234567"
 client.rejected?        # => false
