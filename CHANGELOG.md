@@ -2,6 +2,7 @@
 
 ## [0.0.9] - 10 May 2021
 
+- Passes `charset` attribute to the API in [`#build_uri`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:build_uri)
 - Passes `lang` attribute to the API in [`#build_uri`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:build_uri)
 
 ## [0.0.8] - 10 May 2021
