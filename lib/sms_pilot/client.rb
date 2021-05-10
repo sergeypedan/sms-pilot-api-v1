@@ -353,7 +353,7 @@ module SmsPilot
     #
     private def build_uri(phone, text)
       URI.parse(API_ENDPOINT).tap do |uri|
-        uri.query = URI.encode_www_form({ apikey: @api_key, format: :json, send: text, to: phone })
+        uri.query = URI.encode_www_form({ apikey: @api_key, format: :json, lang: @locale, send: text, to: phone })
       end
     end
 
