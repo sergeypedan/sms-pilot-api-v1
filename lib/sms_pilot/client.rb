@@ -76,6 +76,9 @@ module SmsPilot
     #
     AVAILABLE_LOCALES = [:ru, :en].freeze
 
+    REQUEST_ACCEPT_FORMAT = "json".freeze
+    REQUEST_CHARSET = "utf-8".freeze
+
     attr_reader :api_key
     attr_reader :error
     attr_reader :locale
@@ -353,9 +356,18 @@ module SmsPilot
     #
     private def build_uri(phone, text)
       URI.parse(API_ENDPOINT).tap do |uri|
-        uri.query = URI.encode_www_form({ apikey: @api_key, charset: "utf-8", format: :json, lang: @locale, send: text, to: phone })
+        uri.query = URI.encode_www_form({
+          apikey:  @api_key,
+          charset: REQUEST_CHARSET,
+          format:  REQUEST_ACCEPT_FORMAT,
+          lang:    @locale,
+          send:    text,
+          to:      phone
+        })
       end
     end
+
+
 
 
     # Cleans up your phone from anything but digits. Also replaces 8 to 7 if it is the first digit.
