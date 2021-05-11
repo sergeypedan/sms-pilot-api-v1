@@ -133,7 +133,7 @@ module SmsPilot
     #
     # @example
     #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
-    #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!", "ФССПРФ") # => true
+    #   client.send_sms("+7 (902) 123-45-67", "Здарова бандиты", "ФССПРФ") # => true
     #
     def send_sms(phone, message, sender_name = nil)
       validate_phone! phone
