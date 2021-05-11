@@ -131,13 +131,15 @@ module SmsPilot
     #
     # @example
     #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!") # => true
+    #   client.send_sms("+7 (902) 123-45-67", "Привет, мир!", "ФССПРФ") # => true
     #
-    def send_sms(phone, message)
+    def send_sms(phone, message, sender_name = nil)
       validate_phone! phone
       validate_message! message
+      validate_sender_name! sender_name
 
       @phone = normalize_phone(phone)
-      @uri   = build_uri(@phone, message)
+      @uri   = build_uri(@phone, message, sender_name)
 
       response = persist_response_details Net::HTTP.get_response(@uri)
 
@@ -358,21 +360,29 @@ module SmsPilot
     # @return [URI]
     # @raise [URI::InvalidURIError] but is almost impossible, because we provide the URL ourselves
     #
+    # @param [String] phone
+    # @param [String] text
+    # @param [nil, String] sender_name
+    #
     # @see #api_key
     # @see #phone
     # @see #validate_phone!
     # @see #validate_message!
+    # @see #validate_sender_name!
     #
-    private def build_uri(phone, text)
+    private def build_uri(phone, text, sender_name)
+      attributes = {
+        apikey:  @api_key,
+        charset: REQUEST_CHARSET,
+        format:  REQUEST_ACCEPT_FORMAT,
+        lang:    @locale,
+        send:    text,
+        to:      phone
+      }
+      attributes = attributes.merge({ sender: sender_name }) if sender
+
       URI.parse(API_ENDPOINT).tap do |uri|
-        uri.query = URI.encode_www_form({
-          apikey:  @api_key,
-          charset: REQUEST_CHARSET,
-          format:  REQUEST_ACCEPT_FORMAT,
-          lang:    @locale,
-          send:    text,
-          to:      phone
-        })
+        uri.query = URI.encode_www_form(attributes)
       end
     end
 
@@ -474,6 +484,21 @@ module SmsPilot
       fail SmsPilot::InvalidPhoneError, "phone cannot be empty" if phone == ""
       fail SmsPilot::InvalidPhoneError, "phone must contain digits" if phone.scan(/\d/).none?
       phone
+    end
+
+
+    # Validates sender name
+    # @private
+    #
+    # @param [nil, String] sender_name
+    # @return [String] the original value passed into the method, only if it was valid
+    #
+    # @raise [SmsPilot::InvalidSenderNameError] if you pass anything but <tt>nil</tt> or non-empty <tt>String</tt>
+    #
+    private def validate_sender_name!(sender_name)
+      fail SmsPilot::InvalidSenderNameError, "sender name must be either nil or String" unless [NilClass, String].include? sender_name.class
+      fail SmsPilot::InvalidSenderNameError, "sender name cannot be empty" if sender_name == ""
+      sender_name
     end
 
     # @!endgroup

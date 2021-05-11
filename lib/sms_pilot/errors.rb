@@ -2,9 +2,10 @@
 
 module SmsPilot
 
-  class InvalidAPIkeyError  < ArgumentError; end
-  class InvalidMessageError < ArgumentError; end
-  class InvalidPhoneError   < ArgumentError; end
-  class InvalidLocaleError  < ArgumentError; end
+  class InvalidAPIkeyError     < ArgumentError; end
+  class InvalidLocaleError     < ArgumentError; end
+  class InvalidMessageError    < ArgumentError; end
+  class InvalidPhoneError      < ArgumentError; end
+  class InvalidSenderNameError < ArgumentError; end
 
 end
