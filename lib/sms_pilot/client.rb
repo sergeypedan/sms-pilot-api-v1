@@ -88,8 +88,8 @@ module SmsPilot
     attr_reader :response_status
 
 
-    # @param api_key [String]
-    # @param locale [Symbol]
+    # @param [String] api_key
+    # @param [Symbol] locale
     #
     # @return [SmsPilot::Client]
     # @raise [SmsPilot::InvalidAPIkeyError] if you pass anything but a non-empty String
@@ -121,12 +121,14 @@ module SmsPilot
     #
     # @param [String] phone The phone to send the SMS to. In free-form, will be sanitized.
     # @param [String] message The text of your message.
+    # @param [nil, String] sender_name Must be registered in your SMS Pilot member area
     #
     # @raise [SmsPilot::InvalidPhoneError] if you pass anythig but a String with the <tt>phone</tt> argument
     # @raise [SmsPilot::InvalidMessageError] if you pass anythig but a String with the <tt>message</tt> argument
     # @raise [SmsPilot::InvalidMessageError] if your message is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone is empty
     # @raise [SmsPilot::InvalidPhoneError] if your phone has no digits
+    # @raise [SmsPilot::InvalidSenderNameError] if you pass anything but <tt>nil</tt> or non-empty String
     # @raise [URI::InvalidURIError] but is almost impossible, because we provide the URL ourselves
     #
     # @example
