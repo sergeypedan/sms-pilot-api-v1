@@ -379,7 +379,7 @@ module SmsPilot
         send:    text,
         to:      phone
       }
-      attributes = attributes.merge({ sender: sender_name }) if sender
+      attributes = attributes.merge({ sender: sender_name }) if sender_name
 
       URI.parse(API_ENDPOINT).tap do |uri|
         uri.query = URI.encode_www_form(attributes)
