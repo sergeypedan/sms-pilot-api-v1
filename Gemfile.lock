@@ -6,13 +6,20 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     coderay (1.1.3)
+    crack (0.4.5)
+      rexml
     diff-lcs (1.4.4)
+    hashdiff (1.0.1)
     method_source (1.0.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    public_suffix (4.0.6)
     rake (13.0.3)
+    rexml (3.2.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -26,15 +33,20 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
+    webmock (3.12.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
   x86_64-darwin-17
 
 DEPENDENCIES
   pry
-  rake (~> 13.0)
-  rspec (~> 3.0)
+  rake
+  rspec
   sms-pilot-api-v1!
+  webmock
 
 BUNDLED WITH
    2.2.17
