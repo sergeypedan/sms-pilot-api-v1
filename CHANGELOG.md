@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.10] - 2021-05-11
+
+### Added
+
+- Accepts sender name in [`#initialize`](https://rubydoc.info/github/sergeypedan/sms-pilot-api-v1/master/SmsPilot%2FClient:initialize)
+- Tests for `send_sms`
+
 ## [0.0.9] - 2021-05-10
 
 ### Added
