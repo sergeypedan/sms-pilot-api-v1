@@ -76,6 +76,7 @@ See [structured documentation](https://rubydoc.info/github/sergeypedan/sms-pilot
 
 ```ruby
 client.send_sms("+7 (902) 123-45-67", "Привет, мир!")
+client.send_sms("+7 (902) 123-45-67", "Привет, мир!", "ФССПРФ")
 # => true
 ```
 
