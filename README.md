@@ -195,8 +195,8 @@ See [structured documentation](https://rubydoc.info/github/sergeypedan/sms-pilot
 
 ## Roadmap
 
-1. Switch to POST to escape 1024 symbolos GET request limit
-1. Switch to result object pattern
-1. Проверка статусов SMS
-1. Проверка баланса
-1. Информация о пользователе
+-[ ] Switch to POST to escape 1024 symbolos GET request limit
+-[ ] Switch to result object pattern
+-[ ] Проверка статусов SMS
+-[ ] Проверка баланса
+-[ ] Информация о пользователе
